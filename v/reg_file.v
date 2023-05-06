@@ -36,7 +36,6 @@ module reg_file(
 	reg [31:0] rd_value_a_r;
 	reg [31:0] rd_value_b_r;
 
-	// always@(posedge clk or negedge rst_n)
 	always@(rst_n, rea, reg_a_index, regs)
 	if (!rst_n) begin
 		rd_value_a_r <= 0;

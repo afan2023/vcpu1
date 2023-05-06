@@ -120,6 +120,13 @@ module vcore (
 		.out(alu_out), 
 		.flags(alu_flags)
 		);
+
+	reg [31:0] status_reg; // to be used
+	always@(posedge clk or negedge rst_n)
+	if (!rst_n)
+		status_reg <= 0;
+	else
+		status_reg[2:0] <= alu_flags;
 		
 	mem_cmd u_mem_cmd(
 		.opcode(opcode),	
