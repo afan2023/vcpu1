@@ -44,3 +44,41 @@
 `define FIELD_RI_1_ADDUI 21:18	
 `define FIELD_IMM_2_ADDUI 15:0
 `define FIELD_RI_D_ADDUI 25:22
+// other arithmetic operations to be added
+
+// Logical operations
+`define OPCODE_AND 6'b010000
+`define FIELD_RI_1_AND 21:18
+`define FIELD_RI_2_AND 17:14
+`define FIELD_RI_D_AND 25:22
+
+`define OPCODE_OR 6'b010010
+`define FIELD_RI_1_OR 21:18
+`define FIELD_RI_2_OR 17:14
+`define FIELD_RI_D_OR 25:22
+
+`define OPCODE_NOT 6'b010100
+`define FIELD_RI_1_NOT 21:18
+`define FIELD_RI_D_NOT 25:22
+
+`define OPCODE_XOR 6'b010110
+`define FIELD_RI_1_XOR 21:18
+`define FIELD_RI_2_XOR 17:14
+`define FIELD_RI_D_XOR 25:22
+ 
+ // Shifts
+`define OPCODE_SL 6'b011000
+`define FIELD_RI_1_SL 21:18
+`define FIELD_RI_2_SL 17:14
+`define FIELD_RI_D_SL 25:22
+
+`define OPCODE_SR 6'b011010
+`define FIELD_RI_1_SR 21:18
+`define FIELD_RI_2_SR 17:14
+`define FIELD_RI_D_SR 25:22
+
+`define OPCODE_SRA 6'b011100
+`define FIELD_RI_1_SRA 21:18
+`define FIELD_RI_2_SRA 17:14
+`define FIELD_RI_D_SRA 25:22
+

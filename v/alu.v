@@ -10,7 +10,6 @@ module alu(
 
 	reg [31:0] out_r;
 	reg flag_overflow_r;
-	reg flag_zero_r;
 	reg flag_neg_r;
 
 	reg [31:0] adder_in_b;
@@ -26,26 +25,57 @@ module alu(
 
 	always@(*) begin
 		case(opcode)
+			// arithmetics
 			`OPCODE_ADDU,`OPCODE_ADDUI: begin
 				adder_in_b <= in_b;
 				out_r <= adder_out;
-				flag_overflow_r <= adder_c;
-				flag_zero_r <= !(|adder_out);
-				flag_neg_r <= 1'b0;
 			end
-			// tbc
+			// logical operations
+			`OPCODE_AND: begin
+				out_r <= in_a & in_b;
+			end
+			`OPCODE_OR: begin
+				out_r <= in_a | in_b;
+			end
+			`OPCODE_NOT: begin
+				out_r <= ~ in_a;
+			end
+			`OPCODE_XOR: begin
+				out_r <= in_a ^ in_b;
+			end
+			// shift
+			`OPCODE_SL: begin
+				out_r <= in_a << in_b[4:0];
+			end
+			`OPCODE_SR: begin
+				out_r <= in_a >> in_b[4:0];
+			end
+			`OPCODE_SRA: begin
+				out_r <= $signed(in_a) >>> in_b[4:0];
+			end
 			default: begin
 				out_r <= 0;
-				flag_overflow_r <= 1'b0;
-				flag_zero_r <= 1'b0;
-				flag_neg_r <= 1'b0;
 			end			
 		endcase
 	end
+	
+	always@(*) begin
+		case(opcode)
+			`OPCODE_ADDU,`OPCODE_ADDUI: begin
+				flag_overflow_r <= adder_c;
+				flag_neg_r <= 1'b0;
+			end
+			default: begin
+				flag_overflow_r <= 1'b0;
+				flag_neg_r <= 1'b0;
+			end
+		endcase
+	end
+	
 
 	assign out = out_r;
 	assign flags[0] = flag_overflow_r;
-	assign flags[1] = flag_zero_r;
+	assign flags[1] = ~(|out_r);
 	assign flags[2] = flag_neg_r;
 
 endmodule

@@ -167,6 +167,90 @@ end else case(field_opcode)
 		wre_r <= 1'b1;
 		pc_halt_r <= 1'b0;
 	end
+	`OPCODE_AND: begin
+		exe_opcode_r <= field_opcode;
+		op1_ri_r <= instr[`FIELD_RI_1_AND];
+		re1_r <= 1'b1;
+		op2_ri_r <= instr[`FIELD_RI_2_AND];
+		re2_r <= 1'b1;
+		imm_valid_r <= 1'b0;
+		sign_r <= 1'b0;
+		wr_ri_r <= instr[`FIELD_RI_D_AND];
+		wre_r <= 1'b1;
+		pc_halt_r <= 1'b0;
+	end	
+	`OPCODE_OR: begin
+		exe_opcode_r <= field_opcode;
+		op1_ri_r <= instr[`FIELD_RI_1_OR];
+		re1_r <= 1'b1;
+		op2_ri_r <= instr[`FIELD_RI_2_OR];
+		re2_r <= 1'b1;
+		imm_valid_r <= 1'b0;
+		sign_r <= 1'b0;
+		wr_ri_r <= instr[`FIELD_RI_D_OR];
+		wre_r <= 1'b1;
+		pc_halt_r <= 1'b0;
+	end	
+	`OPCODE_NOT: begin
+		exe_opcode_r <= field_opcode;
+		op1_ri_r <= instr[`FIELD_RI_1_NOT];
+		re1_r <= 1'b1;
+		op2_ri_r <= 4'h0;
+		re2_r <= 1'b0;
+		imm_valid_r <= 1'b0;
+		sign_r <= 1'b0;
+		wr_ri_r <= instr[`FIELD_RI_D_NOT];
+		wre_r <= 1'b1;
+		pc_halt_r <= 1'b0;
+	end	
+	`OPCODE_XOR: begin
+		exe_opcode_r <= field_opcode;
+		op1_ri_r <= instr[`FIELD_RI_1_XOR];
+		re1_r <= 1'b1;
+		op2_ri_r <= instr[`FIELD_RI_2_XOR];
+		re2_r <= 1'b1;
+		imm_valid_r <= 1'b0;
+		sign_r <= 1'b0;
+		wr_ri_r <= instr[`FIELD_RI_D_XOR];
+		wre_r <= 1'b1;
+		pc_halt_r <= 1'b0;
+	end	
+	`OPCODE_SL: begin
+		exe_opcode_r <= field_opcode;
+		op1_ri_r <= instr[`FIELD_RI_1_SL];
+		re1_r <= 1'b1;
+		op2_ri_r <= instr[`FIELD_RI_2_SL];
+		re2_r <= 1'b1;
+		imm_valid_r <= 1'b0;
+		sign_r <= 1'b0;
+		wr_ri_r <= instr[`FIELD_RI_D_SL];
+		wre_r <= 1'b1;
+		pc_halt_r <= 1'b0;
+	end
+	`OPCODE_SR: begin
+		exe_opcode_r <= field_opcode;
+		op1_ri_r <= instr[`FIELD_RI_1_SR];
+		re1_r <= 1'b1;
+		op2_ri_r <= instr[`FIELD_RI_2_SR];
+		re2_r <= 1'b1;
+		imm_valid_r <= 1'b0;
+		sign_r <= 1'b0;
+		wr_ri_r <= instr[`FIELD_RI_D_SR];
+		wre_r <= 1'b1;
+		pc_halt_r <= 1'b0;
+	end
+	`OPCODE_SRA: begin
+		exe_opcode_r <= field_opcode;
+		op1_ri_r <= instr[`FIELD_RI_1_SRA];
+		re1_r <= 1'b1;
+		op2_ri_r <= instr[`FIELD_RI_2_SRA];
+		re2_r <= 1'b1;
+		imm_valid_r <= 1'b0;
+		sign_r <= 1'b0;
+		wr_ri_r <= instr[`FIELD_RI_D_SRA];
+		wre_r <= 1'b1;
+		pc_halt_r <= 1'b0;
+	end	
 endcase
 
 assign wr_scope = (!wre_r)? 

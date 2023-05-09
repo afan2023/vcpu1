@@ -57,9 +57,9 @@ module vcpu1_tb;
 		rst_n = 1'b1;
 		#1;
 		rst_n = 1'b0;
-		#101;
+		#51;
 		rst_n = 1'b1;
-		#500;
+		#800;
 		$stop;
 	end
 

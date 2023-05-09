@@ -26,6 +26,12 @@ module wr_data_sel(
 		`OPCODE_MOV, `OPCODE_MOVIL, `OPCODE_MOVIH: begin
 			wdata_r <= oprand2;
 		end
+		`OPCODE_AND,`OPCODE_OR,`OPCODE_NOT,`OPCODE_XOR: begin
+			wdata_r <= alu_out;
+		end
+		`OPCODE_SL,`OPCODE_SR,`OPCODE_SRA: begin
+			wdata_r <= alu_out;
+		end
 		default: begin
 			wdata_r <= 'h0;
 		end
