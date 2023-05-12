@@ -26,8 +26,12 @@ module alu(
 	always@(*) begin
 		case(opcode)
 			// arithmetics
-			`OPCODE_ADDU,`OPCODE_ADDUI: begin
+			`OPCODE_ADDU, `OPCODE_ADDUI, `OPCODE_ADD, `OPCODE_ADDI: begin
 				adder_in_b <= in_b;
+				out_r <= adder_out;
+			end
+			`OPCODE_SUB : begin
+				adder_in_b <= - in_b;
 				out_r <= adder_out;
 			end
 			// logical operations
@@ -64,6 +68,14 @@ module alu(
 			`OPCODE_ADDU,`OPCODE_ADDUI: begin
 				flag_overflow_r <= adder_c;
 				flag_neg_r <= 1'b0;
+			end
+			`OPCODE_ADD, `OPCODE_ADDI: begin
+				flag_overflow_r <= (in_a[31] ~^ in_b[31]) & (in_a[31] ^ out_r[31]);
+				flag_neg_r <= out_r[31];
+			end
+			`OPCODE_SUB: begin
+				flag_overflow_r <= (in_a[31] & (~ in_b[31]) & (~ out_r[31])) | ((~in_a[31]) & in_b[31] & out_r[31]);
+				flag_neg_r <= out_r[31];
 			end
 			default: begin
 				flag_overflow_r <= 1'b0;

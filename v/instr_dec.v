@@ -76,7 +76,7 @@ end else case(field_opcode)
 		wr_ri_r <= 4'h0;
 		wre_r <= 1'b0;
 		pc_halt_r <= 1'b1;
-	end	
+	end
 	`OPCODE_ADDU: begin
 		exe_opcode_r <= field_opcode; // to think twice: maybe ALU need a different code?
 		op1_ri_r <= instr[`FIELD_RI_1_ADDU];
@@ -99,6 +99,43 @@ end else case(field_opcode)
 		imm_valid_r <= 1'b1;
 		sign_r <= 1'b0;
 		wr_ri_r <= instr[`FIELD_RI_D_ADDUI];
+		wre_r <= 1'b1;
+		pc_halt_r <= 1'b0;
+	end
+	`OPCODE_ADD: begin
+		exe_opcode_r <= field_opcode; // to think twice: maybe ALU need a different code?
+		op1_ri_r <= instr[`FIELD_RI_1_ADD];
+		re1_r <= 1'b1;
+		op2_ri_r <= instr[`FIELD_RI_2_ADD];
+		re2_r <= 1'b1;
+		imm_valid_r <= 1'b0;
+		sign_r <= 1'b0;
+		wr_ri_r <= instr[`FIELD_RI_D_ADD];
+		wre_r <= 1'b1;
+		pc_halt_r <= 1'b0;
+	end
+	`OPCODE_ADDI: begin
+		exe_opcode_r <= field_opcode;
+		op1_ri_r <= instr[`FIELD_RI_1_ADDI];
+		re1_r <= 1'b1;
+		op2_ri_r <= 4'h0;
+		re2_r <= 1'b0;
+		imm_data_r <= instr[`FIELD_IMM_2_ADDI];
+		imm_valid_r <= 1'b1;
+		sign_r <= 1'b1;
+		wr_ri_r <= instr[`FIELD_RI_D_ADDI];
+		wre_r <= 1'b1;
+		pc_halt_r <= 1'b0;
+	end
+	`OPCODE_SUB: begin
+		exe_opcode_r <= field_opcode;
+		op1_ri_r <= instr[`FIELD_RI_1_SUB];
+		re1_r <= 1'b1;
+		op2_ri_r <= instr[`FIELD_RI_2_SUB];
+		re2_r <= 1'b1;
+		imm_valid_r <= 1'b0;
+		sign_r <= 1'b0;
+		wr_ri_r <= instr[`FIELD_RI_D_SUB];
 		wre_r <= 1'b1;
 		pc_halt_r <= 1'b0;
 	end
@@ -248,6 +285,71 @@ end else case(field_opcode)
 		imm_valid_r <= 1'b0;
 		sign_r <= 1'b0;
 		wr_ri_r <= instr[`FIELD_RI_D_SRA];
+		wre_r <= 1'b1;
+		pc_halt_r <= 1'b0;
+	end	
+	
+	`OPCODE_BEQ, `OPCODE_BNE, `OPCODE_BGE, `OPCODE_BLT: begin
+		exe_opcode_r <= field_opcode;
+		op1_ri_r <= 4'h0;
+		re1_r <= 1'b0;
+		op2_ri_r <= 4'h0;
+		re2_r <= 1'b0;
+		imm_data_r <= instr[`FIELD_IMM_2_B];
+		imm_valid_r <= 1'b1;
+		sign_r <= 1'b1;
+		wr_ri_r <= 4'h0;
+		wre_r <= 1'b0;
+		pc_halt_r <= 1'b0;
+	end
+	`OPCODE_J: begin
+		exe_opcode_r <= field_opcode;
+		op1_ri_r <= 4'h0;
+		re1_r <= 1'b0;
+		op2_ri_r <= 4'h0;
+		re2_r <= 1'b0;
+		imm_data_r <= instr[`FIELD_IMM_2_J];
+		imm_valid_r <= 1'b1;
+		sign_r <= 1'b1;
+		wr_ri_r <= 4'h0;
+		wre_r <= 1'b0;
+		pc_halt_r <= 1'b0;
+	end	
+	`OPCODE_JR: begin
+		exe_opcode_r <= field_opcode;
+		op1_ri_r <= instr[`FIELD_RI_1_JR];
+		re1_r <= 1'b1;
+		op2_ri_r <= 4'h0;
+		re2_r <= 1'b0;
+		imm_valid_r <= 1'b0;
+		sign_r <= 1'b0;
+		wr_ri_r <= 4'h0;
+		wre_r <= 1'b0;
+		pc_halt_r <= 1'b0;
+	end		
+	`OPCODE_JL: begin
+		exe_opcode_r <= field_opcode;
+		op1_ri_r <= 4'h0;
+		re1_r <= 1'b0;
+		op2_ri_r <= 4'h0;
+		re2_r <= 1'b0;
+		imm_data_r <= instr[`FIELD_IMM_2_JLR];
+		imm_valid_r <= 1'b1;
+		sign_r <= 1'b1;
+		wr_ri_r <= instr[`FIELD_RI_D_JLR];
+		wre_r <= 1'b1;
+		pc_halt_r <= 1'b0;
+	end	
+	`OPCODE_JLR: begin
+		exe_opcode_r <= field_opcode;
+		op1_ri_r <= instr[`FIELD_RI_1_JLR];
+		re1_r <= 1'b1;
+		op2_ri_r <= 4'h0;
+		re2_r <= 1'b0;
+		imm_data_r <= instr[`FIELD_IMM_2_JLR];
+		imm_valid_r <= 1'b1;
+		sign_r <= 1'b1;
+		wr_ri_r <= instr[`FIELD_RI_D_JLR];
 		wre_r <= 1'b1;
 		pc_halt_r <= 1'b0;
 	end	

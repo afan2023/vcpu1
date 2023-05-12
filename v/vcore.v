@@ -22,8 +22,8 @@ module vcore (
 	wire [31:0] new_pc;
 	wire change_pc;
 	wire halt;
-	assign change_pc = 1'b0;	// not used before branch instr implementation
-	assign new_pc = 32'h0; 		// not used before branch instr implementation
+	// assign change_pc = 1'b0;	// not used before branch instr implementation
+	// assign new_pc = 32'h0; 		// not used before branch instr implementation
 
 	pc u_pc(
 		.clk				(clk),
@@ -127,6 +127,20 @@ module vcore (
 		status_reg <= 0;
 	else
 		status_reg[2:0] <= alu_flags;
+	
+	wire [31:0] jra;
+	branch_jumper u_branch_jumper(
+		.rst_n(rst_n),
+		.opcode(opcode),
+		.flags(status_reg[2:0]),
+		.pc(instr_addr),
+		.reg_value(oprana),
+		.imm_offset(opranb),
+		
+		.change_pc(change_pc),
+		.new_pc(new_pc),
+		.ra_wdata(jra)
+		);
 		
 	mem_cmd u_mem_cmd(
 		.opcode(opcode),	
@@ -144,6 +158,7 @@ module vcore (
 		.alu_out(alu_out),
 		.mem_out(mem_rdata),
 		.oprand2(opranb),
+		.jra(jra),
 		.opcode(opcode),
 		
 		.wdata(reg_w)

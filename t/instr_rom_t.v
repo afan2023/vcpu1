@@ -5,8 +5,8 @@ module instr_rom_t(
 	output [31:0] instruction
 );
 	
-// 256 bytes mem
-reg [7:0] instr_mem [255:0];
+// 1k bytes mem
+reg [7:0] instr_mem [1023:0];
 
 // simulation, load instruction mem content from file
 initial $readmemh ("instr_rom_t.txt", instr_mem);

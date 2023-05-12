@@ -5,6 +5,7 @@ module wr_data_sel(
 	input		[31:0]	alu_out,
 	input		[31:0]	mem_out,
 	input		[31:0]	oprand2, // for mov operations
+	input		[31:0]	jra, // jump return address
 //	input		[1:0]		op_mod_sel,	// depends on operation, select execution module
 	input		[5:0]		opcode, // tbm later, use opcode now
 	
@@ -17,7 +18,7 @@ module wr_data_sel(
 	if (!rst_n) begin
 		wdata_r <= 32'h0;
 	end else case (opcode)
-		`OPCODE_ADDU,`OPCODE_ADDUI: begin
+		`OPCODE_ADDU,`OPCODE_ADDUI,`OPCODE_ADD,`OPCODE_ADDI,`OPCODE_SUB: begin
 			wdata_r <= alu_out;
 		end
 		`OPCODE_LD: begin
@@ -31,6 +32,9 @@ module wr_data_sel(
 		end
 		`OPCODE_SL,`OPCODE_SR,`OPCODE_SRA: begin
 			wdata_r <= alu_out;
+		end
+		`OPCODE_JL, `OPCODE_JLR: begin
+			wdata_r <= jra;
 		end
 		default: begin
 			wdata_r <= 'h0;

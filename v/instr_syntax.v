@@ -34,7 +34,7 @@
 `define FIELD_RI_D_MOVIH 25:22
 `define FIELD_IMM_MOVIH 15:0
 
-// Addition 
+// Arithmetics 
 `define OPCODE_ADDU 6'b001100	// unsigned, two registers
 `define FIELD_RI_1_ADDU 21:18	// index of the register that holds the value of 1st operand
 `define FIELD_RI_2_ADDU 17:14	// index of second operand register
@@ -44,7 +44,21 @@
 `define FIELD_RI_1_ADDUI 21:18	
 `define FIELD_IMM_2_ADDUI 15:0
 `define FIELD_RI_D_ADDUI 25:22
-// other arithmetic operations to be added
+
+`define OPCODE_ADD 6'b001110 // signed addition
+`define FIELD_RI_1_ADD 21:18	
+`define FIELD_RI_2_ADD 17:14	
+`define FIELD_RI_D_ADD 25:22
+
+`define OPCODE_ADDI 6'b001111 // signed addition, with immediate number
+`define FIELD_RI_1_ADDI 21:18	
+`define FIELD_IMM_2_ADDI 15:0
+`define FIELD_RI_D_ADDI 25:22
+
+`define OPCODE_SUB 6'b001011 // substraction
+`define FIELD_RI_1_SUB 21:18	
+`define FIELD_RI_2_SUB 17:14	
+`define FIELD_RI_D_SUB 25:22
 
 // Logical operations
 `define OPCODE_AND 6'b010000
@@ -82,3 +96,27 @@
 `define FIELD_RI_2_SRA 17:14
 `define FIELD_RI_D_SRA 25:22
 
+// Jump and conditional branch
+`define OPCODE_BEQ 6'b100100
+`define FIELD_IMM_2_B 15:0
+`define OPCODE_BNE 6'b100101
+`define FIELD_IMM_2_B 15:0
+`define OPCODE_BGE 6'b100110
+`define FIELD_IMM_2_B 15:0
+`define OPCODE_BLT 6'b100111
+`define FIELD_IMM_2_B 15:0
+
+`define OPCODE_J 6'b100000 // jump to offset = immediate number
+`define FIELD_IMM_2_J 15:0
+
+`define OPCODE_JR 6'b100001 // jump to offset = Ri1
+`define FIELD_RI_1_JR 21:18
+
+`define OPCODE_JL 6'b100010 // jump to offset = imm, write return address to Rd
+`define FIELD_RI_D_JL 25:22
+`define FIELD_IMM_2_JL 15:0
+
+`define OPCODE_JLR 6'b100011 // jump to offset = Ri1 + imm, write return address to Rd
+`define FIELD_RI_D_JLR 25:22
+`define FIELD_RI_1_JLR 21:18
+`define FIELD_IMM_2_JLR 15:0
