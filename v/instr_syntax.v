@@ -1,6 +1,6 @@
-///**
-// * instruction syntax
-// */
+/**
+ * instructions
+ */
  
 // operation code field is the bits 31:26 in the instruction
 `define	FIELD_OPCODE	31:26
